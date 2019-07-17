@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 public class StreamUtil {
@@ -40,7 +41,7 @@ public class StreamUtil {
 		
 		
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(src);
-		
+		InputStreamReader inputStreamReader = new InputStreamReader(bufferedInputStream);
 		
 		Integer str = null;
 		while((str = bufferedInputStream.read()) != -1){
