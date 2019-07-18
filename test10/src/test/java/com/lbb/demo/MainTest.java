@@ -1,6 +1,9 @@
 package com.lbb.demo;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;
@@ -10,13 +13,30 @@ import com.lbb.utils.DateUtil;
 public class MainTest {
 	
 	@Test//根据传入日期获得年龄
-	public void fun1(){
+	public void fun1() throws ParseException{
 		
-		String date = "2001-1-6";
+		String date = "2001-01-06";
+		SimpleDateFormat parse = new SimpleDateFormat("yyyy-MM-dd");
+		Date parse2 = parse.parse(date);
+		Calendar now = Calendar.getInstance();
+		now.setTime(new Date());
+		Calendar instance = Calendar.getInstance();
+		instance.setTime(parse2);
+		System.out.println(parse2);
+		if(instance.after(now)){
+			System.out.println("0");
+		}else{
+			System.err.println(now.get(Calendar.YEAR));
+			System.err.println(instance.get(Calendar.YEAR));
+			Integer age = now.get(Calendar.YEAR)-instance.get(Calendar.YEAR);
+			System.out.println(age);
+		}
 		
-		Integer age = DateUtil.getAge(date);
 		
-		System.out.println("你的年龄是:"+age+"岁");
+		//System.out.println(parse2);
+		//Integer age = DateUtil.getAge(date);
+		
+		//System.out.println("你的年龄是:"+age+"岁");
 		
 	}
 	
