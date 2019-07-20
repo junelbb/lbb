@@ -86,7 +86,8 @@
 							$("#item_" + id).remove();
 						}else{
 							alert(data.message);
-						} */
+						}  */
+						location.href="/my/blogs";
 					}
 				});
 			}
