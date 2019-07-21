@@ -144,6 +144,24 @@ public class AssertUtil {
 		}
 	}
 	
+	/**
+	 * 
+	 * @Title: greaterThanZero 
+	 * @Description: TODO
+	 * @param value
+	 * @param message
+	 * @return: void
+	 */
+	public static void strlength(String str, String message){
+		//断言值字符串大于0
+		if(str.length()>0){
+			System.out.println("字符串大于0");
+		}else{
+			throw new CRuntimeExcception(message);
+		}
+		
+	}
+	
 	
 	
 }

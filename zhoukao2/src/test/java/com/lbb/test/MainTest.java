@@ -103,4 +103,15 @@ public class MainTest {
 		}
 	}
 	
+	@Test
+	public void strlength(){
+		try {
+			//BigDecimal decimal = new BigDecimal("0");
+			AssertUtil.strlength("", "字符串应该大于0");
+		} catch (CRuntimeExcception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
 }
