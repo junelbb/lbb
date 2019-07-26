@@ -3,16 +3,14 @@
  */
 package com.lbb.cms.web.controllers;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
+import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,15 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lbb.cms.core.Page;
 import com.lbb.cms.domain.Article;
-import com.lbb.cms.domain.Category;
-import com.lbb.cms.domain.Channel;
 import com.lbb.cms.domain.User;
 import com.lbb.cms.service.ArticleService;
 import com.lbb.cms.service.UserService;
 import com.lbb.cms.utils.FileUploadUtil;
-import com.lbb.cms.utils.FileUtils;
 import com.lbb.cms.utils.PageHelpUtil;
 import com.lbb.cms.web.Constant;
 
@@ -155,13 +149,6 @@ public class UserController {
 		return "redirect:/my/userInfo";
 	}
 	
-	/**查看头像**/
-	@RequestMapping("lookImg")
-	public void lookImg(String path,HttpServletRequest request,HttpServletResponse response){
-		System.out.println(path);
-		FileUtils.lookImg(path, request, response);
-	}
-	
 	
 	/**上传头像**/
 	@RequestMapping("profile/avatar")
@@ -171,4 +158,19 @@ public class UserController {
 		return "user-space/avatar";
 	}
 	
+	/**保存头像**/
+	@RequestMapping("profile/avatar/edit")
+	public String editAvatar(MultipartFile file,Model model,HttpServletRequest request){
+		String upload = FileUploadUtil.upload(request, file);
+		User user = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
+		if(upload!=null && !"".equals(upload)){
+			user.setPicture(upload);
+			userService.editAvatar(user);
+		}else{
+			model.addAttribute("errMsg", "还没有选择文件");
+		}
+		User user2 = userService.get(user.getId());
+		request.getSession().setAttribute(Constant.LOGIN_USER, user2);
+		return "redirect:../avatar";
+	}
 }

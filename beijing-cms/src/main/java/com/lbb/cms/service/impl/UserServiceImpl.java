@@ -46,5 +46,11 @@ public class UserServiceImpl implements UserService {
 		return userMapper.count(conditions);
 	}
 
+	@Override
+	public void editAvatar(User user) {
+		// TODO Auto-generated method stub
+		userMapper.editAvatar(user);
+	}
+
 	
 }

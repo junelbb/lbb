@@ -18,4 +18,6 @@ public interface UserService {
 	public abstract User get(String username);
 
 	public int count(User user);
+
+	public abstract void editAvatar(User user);
 }

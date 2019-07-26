@@ -96,5 +96,8 @@
     </trim>
   </insert>
   
+  <update id="editAvatar" parameterType="com.lbb.cms.domain.User">
+  	update cms_user set picture = #{picture} where id=#{id}
+  </update>
   
 </mapper>
