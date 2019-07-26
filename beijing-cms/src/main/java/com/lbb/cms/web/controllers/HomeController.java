@@ -18,6 +18,7 @@ import com.lbb.cms.domain.Article;
 import com.lbb.cms.domain.Category;
 import com.lbb.cms.domain.Channel;
 import com.lbb.cms.domain.Slide;
+import com.lbb.cms.domain.SpcialArticle;
 import com.lbb.cms.service.ArticleService;
 import com.lbb.cms.service.SlideService;
 
@@ -89,6 +90,18 @@ public class HomeController {
 			model.addAttribute("channel", new Channel(channel));
 		}
 		model.addAttribute("category", category);
+		
+		//---------------右侧放专题文章---------------------
+		
+		Article specileArticle = new Article();
+		specileArticle.setDeleted(false);
+		specileArticle.setStatus(1);
+		
+		Page specialPage = new Page(1, 2);
+		specialPage.setTotalCount(20);
+		
+		List<SpcialArticle> spcialArticles = articleService.getSpcial(specileArticle, specialPage, null);
+		model.addAttribute("spcialArticles", spcialArticles);
 		
 		return "home";
 	}

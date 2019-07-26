@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lbb.cms.core.Page;
 import com.lbb.cms.dao.ArticleMapper;
 import com.lbb.cms.domain.Article;
+import com.lbb.cms.domain.SpcialArticle;
+import com.lbb.cms.domain.User;
 import com.lbb.cms.service.ArticleService;
 
 /**
@@ -42,6 +44,19 @@ public class ArticleServiceImpl implements ArticleService {
 			page.setTotalCount(totalCount);
 		}
 		return articles;
+	}
+	
+	@Override
+	@Transactional(propagation = Propagation.NOT_SUPPORTED, readOnly = true)
+	public List<SpcialArticle> getSpcial(Article conditions,
+			Page page, LinkedHashMap<String, Boolean> orders) {
+		// TODO Auto-generated method stub
+		List<SpcialArticle> spcial = articleMapper.getSpcial(conditions, orders, page);
+		if(page != null && page.getPageCount() == 0){
+			int totalCount = articleMapper.count(conditions);
+			page.setTotalCount(totalCount);
+		}
+		return spcial;
 	}
 
 	@Override
@@ -79,6 +94,20 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		articleMapper.removeArticle(id);
 	}
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		articleMapper.saveUser(user);
+	}
+
+	@Override
+	public User selectUserByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return articleMapper.selectUserByPrimaryKey(id);
+	}
+
+	
 
 	
 	

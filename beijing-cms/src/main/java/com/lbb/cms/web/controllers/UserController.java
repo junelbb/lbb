@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
@@ -28,7 +29,9 @@ import com.lbb.cms.domain.Category;
 import com.lbb.cms.domain.Channel;
 import com.lbb.cms.domain.User;
 import com.lbb.cms.service.ArticleService;
+import com.lbb.cms.service.UserService;
 import com.lbb.cms.utils.FileUploadUtil;
+import com.lbb.cms.utils.FileUtils;
 import com.lbb.cms.utils.PageHelpUtil;
 import com.lbb.cms.web.Constant;
 
@@ -46,6 +49,9 @@ public class UserController {
 
 	@Autowired
 	ArticleService articleService;
+	
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping({"/", "/index", "/home"})
 	public String home(){
@@ -133,5 +139,36 @@ public class UserController {
 		return true;
 	}
 	
+	//转发至个人修改信息界面
+	@RequestMapping("userInfo")
+	public String userInfo(HttpServletRequest request,Model model){
+		User user = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
+		User user2 = articleService.selectUserByPrimaryKey(user.getId());
+		model.addAttribute("user", user2);
+		return "user-space/user_edit";
+	}
+	
+	//完善或者修改个人信息
+	@RequestMapping("user/save")
+	public String saveUser(User user,Model model){
+		articleService.saveUser(user);
+		return "redirect:/my/userInfo";
+	}
+	
+	/**查看头像**/
+	@RequestMapping("lookImg")
+	public void lookImg(String path,HttpServletRequest request,HttpServletResponse response){
+		System.out.println(path);
+		FileUtils.lookImg(path, request, response);
+	}
+	
+	
+	/**上传头像**/
+	@RequestMapping("profile/avatar")
+	public String avatar(HttpServletRequest request,Model model){
+		User user = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
+		model.addAttribute("user", user);
+		return "user-space/avatar";
+	}
 	
 }

@@ -119,7 +119,7 @@
 						    <p>${article.summary}</p>
 						    <p class="blog_item_footer">
 						    	<span class="glyphicon glyphicon-user" title="作者"></span>作者：${article.author.nickname}&nbsp;&nbsp;&nbsp;
-						    	<span class="glyphicon glyphicon-time" title="发布时间"></span>发布：&nbsp; <fmt:formatDate value="${article.updated}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;&nbsp;&nbsp; 
+						    	<span class="glyphicon glyphicon-time" title="发布时间"></span>发布：&nbsp; <fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd HH:mm:ss"/>&nbsp;&nbsp;&nbsp;&nbsp; 
 						    	<span class="glyphicon glyphicon-eye-open" title="浏览量"></span>浏览量：&nbsp; ${article.hits}&nbsp;&nbsp;&nbsp;&nbsp;
 						    </p>
 						  </div>
@@ -140,7 +140,29 @@
 						</ol>
 					</div>
 				</div>
+				<div>
+					<br><br>
+				</div>
+				
+				<div class="card">
+					<div class="card-header">专题</div>
+					<div class="card-body">
+						<c:forEach items="${spcialArticles}" var="spcialArticles">
+							<font color="red" size="5px">${spcialArticles.title}</font><br><font size="2px;">${spcialArticles.abstr }</font>
+							<ol>
+								<c:forEach items="${spcialArticles.articleList }" var="articleList">
+									<li><p>&nbsp;&nbsp;&nbsp;${articleList.title }</p>
+								</c:forEach>
+							</ol>
+						</c:forEach>
+					</div>
+				</div>
+				
+				
 			</div>
+			
+				
+			
 		</div>
 	</div>
 	

@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.lbb.cms.core.Page;
 import com.lbb.cms.domain.Article;
+import com.lbb.cms.domain.SpcialArticle;
+import com.lbb.cms.domain.User;
 
 
 /**
@@ -65,5 +67,15 @@ public interface ArticleMapper {
 
 
 	public void removeArticle(Integer id);
+
+
+	public void saveUser(User user);
+
+
+	public User selectUserByPrimaryKey(Integer id);
+
+
+	/**查找专题文章**/
+	public List<SpcialArticle> getSpcial(@Param("article") Article article, @Param("order") LinkedHashMap<String, Boolean> orders, @Param("page") Page page);
 
 }

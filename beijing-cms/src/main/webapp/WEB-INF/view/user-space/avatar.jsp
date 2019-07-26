@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -43,17 +44,30 @@
 				  <div class="panel-body">
 				   <h1>我的头像</h1>
 				    	<hr/>
+				   <c:choose>
+				   	<c:when test="${user.picture == '' || user.picture==null}">
+				   	 <span id="span"><img alt="" src="/images/default_avatar.png" style="max-height: 9.5rem" class="rounded img-fluid"></span>
+				   	</c:when>
+				   	<c:otherwise>
+				   	 <img alt="" src="my/lookImg?path=${user.picture }" style="max-height: 9.5rem" class="rounded img-fluid">
+				   	</c:otherwise>
+				   </c:choose>
+				   <br>
+				   <input type="file" name="picture" onchange="changeImg()"><br>
+				  <button type="submit" class="btn active btn-lg btn-danger">提交</button>
 				  </div>
 				</div>
-				
 			</div>
 		</div>
 	</div>
-	
 	<jsp:include page="/WEB-INF/inc/footer.jsp"/>
-	
 	<script type="text/javascript">
-		
+		function changeImg(){
+			var picture = $("input[type=file]").val();
+			alert(picture);
+			$("#span").html("");
+			$("#span").append("<img src='../lookImg?path="+picture+"' style='max-height: 9.5rem' class='rounded img-fluid'>");
+		}
 	</script>
   </body>
 </html>

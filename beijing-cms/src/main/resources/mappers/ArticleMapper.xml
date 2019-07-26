@@ -40,6 +40,14 @@
     </association>-->
   </resultMap>
   
+   <resultMap type="com.lbb.cms.domain.SpcialArticle" id="specialMap">
+  	<id property="id" column="id"></id>
+  	<result property="title" column="title"/>
+  	<result property="abstr" column="abstr"/>
+  	<result property="created" column="created"/>
+  	<collection property="articleList" column="id" ofType="com.lbb.cms.domain.Article" select="selectSpecial"></collection>
+  </resultMap>
+  
   
   <sql id="Example_Where_Clause">
     <where>
@@ -232,6 +240,25 @@
     </if>
   </select>
   
+	<select id="selectSpecial" parameterType="int" resultType="com.lbb.cms.domain.Article">
+  	SELECT
+		b.id,b.title,b.created
+	FROM
+		cms_article as b
+		LEFT JOIN cms_user as u ON u.id=b.user_id
+		LEFT JOIN cms_special_article as cpa ON cpa.aid=b.id
+		LEFT JOIN cms_special as sp ON sp.id=cpa.sid
+	WHERE 
+		sp.id=#{id}
+  </select>
+  
+   <select id="getSpcial" resultMap="specialMap">
+   	SELECT 
+		id,title,abstr,created
+	FROM
+		cms_special
+   </select>
+
   <select id="queryAll" parameterType="article" resultType="article">
 	SELECT 
 		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, 
@@ -352,10 +379,10 @@
         picture = #{picture,jdbcType=VARCHAR},
       </if>
       <if test="channel != null">
-       channel= #{channel.id,jdbcType=VARCHAR},
+       channel_id= #{channel.id,jdbcType=VARCHAR},
       </if>
       <if test="category != null">
-        category=#{category.id,jdbcType=VARCHAR},
+        category_id=#{category.id,jdbcType=VARCHAR},
       </if>
       <if test="author != null">
         author=#{author.id,jdbcType=INTEGER},
@@ -388,5 +415,27 @@
     <delete id="removeArticle" parameterType="int">
     	delete from cms_article where id = #{0}
     </delete>
-
+	 <update id="saveUser" parameterType="com.lbb.cms.domain.User">
+  	update cms_user
+  	<set>
+  		<if test="username!=null">
+  			username=#{username},
+  		</if>
+  		<if test="nickname!=null">
+  			nickname=#{nickname}
+  		</if>
+  	</set>
+  	where id=#{id}
+  </update>
+  
+  <select id="selectUserByPrimaryKey" parameterType="java.lang.Integer" resultType="com.lbb.cms.domain.User">
+    
+  select  
+    id, username, password, nickname, birthday, locked, created, updated
+    from cms_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+ 
+  
 </mapper>

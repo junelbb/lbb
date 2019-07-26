@@ -47,6 +47,8 @@ public class User implements Serializable {
 	/**更新时间*/
 	private Date updated;
 	
+	/**头像地址**/
+	private String picture;
 	
 	//------------------------------------------------------------------------
 	
@@ -139,8 +141,17 @@ public class User implements Serializable {
 		this.updated = updated;
 	}
 
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
 	
 	//--------------------------------------------------------------------------------
+
+	
 
 	@Override
 	public int hashCode() {

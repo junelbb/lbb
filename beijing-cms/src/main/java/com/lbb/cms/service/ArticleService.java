@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.lbb.cms.core.Page;
 import com.lbb.cms.domain.Article;
+import com.lbb.cms.domain.SpcialArticle;
 import com.lbb.cms.domain.User;
 
 /**
@@ -40,6 +41,13 @@ public interface ArticleService {
 	public abstract void save(Article article);
 
 	public abstract void removeArticle(Integer id);
+
+	public abstract void saveUser(User user);
+
+	public abstract User selectUserByPrimaryKey(Integer id);
+
+	public abstract List<SpcialArticle> getSpcial(Article specileArticle,
+			Page specialPage, LinkedHashMap<String, Boolean> orders);
 
 	
 
