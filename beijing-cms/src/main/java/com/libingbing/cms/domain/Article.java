@@ -67,6 +67,8 @@ public class Article implements Serializable {
 	/**更新时间**/
 	private Date updated;
 
+	/**标题样式**/
+	private String titleStyle;
 	
 	private Array[] dateContext;
 	
@@ -205,7 +207,16 @@ public class Article implements Serializable {
 		this.dateContext = dateContext;
 	}
 	
+	public String getTitleStyle() {
+		return titleStyle;
+	}
+
+	public void setTitleStyle(String titleStyle) {
+		this.titleStyle = titleStyle;
+	}
+	
 	//---------------------------------------------------------------------
+
 
 	@Override
 	public int hashCode() {
