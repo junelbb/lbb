@@ -58,8 +58,12 @@
 				    		<select id="category" name="category.id"></select>
 				    	</p>
 				    	<p>
-				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题"/>
+				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题" id="title" style=""/>
 				    		<span class="red"></span>
+				    		<input type="button" value="B" style="font-weight: bold; " id="bTitle">
+				    		<input type="button" value="I" style="font-style:italic;  " id="iTitle">
+				    		<input type="button" value="R" style="color: red; " id="rTitle">
+				    		<input type="hidden" id="style" name="titleStyle">
 				    	</p>
 				    	
 				    	<p>
@@ -71,7 +75,6 @@
 				    		<button id="insertPhoto" type="button" class="btn btn-warning">添加图片</button>
 				    		<span id="span"><br/><input type="file" name="files"/><input type="text" placeholder="图片描述" name="photoDescs"><br/></span>
 				    	</p>
-				    	
 				    	
 				    	<p>
 				    		上传封面：
@@ -94,12 +97,54 @@
 	
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<script type="text/javascript">
-		/* $(document).ready(function(){
-			$("#content").summernote({
-				placeholder:'博客内容',
-				height:300
-			});
-		}); */
+		
+		$("#bTitle").on("click",function(){
+			var str = $("#title").attr("style");
+			if(str.indexOf("font-weight: bold;")!=-1){
+				var sty = $("#style").val();
+				var replace = sty.replace("font-weight: bold;","");
+				$("#style").val(replace);
+				$("#title").attr("style",replace);
+			}else{
+				var sty = $("#style").val();
+				sty+="font-weight: bold;";
+				$("#style").val(sty);
+				$("#title").attr("style",sty);
+			}
+		})	
+		
+		$("#iTitle").on("click",function(){
+			var str = $("#title").attr("style");
+			if(str.indexOf("font-style:italic;")!=-1){
+				var sty = $("#style").val();
+				var replace = sty.replace("font-style:italic;","");
+				$("#style").val(replace);
+				$("#title").attr("style",replace);
+			}else{
+				var sty = $("#style").val();
+				sty+="font-style:italic;";
+				$("#style").val(sty);
+				$("#title").attr("style",sty);
+			}
+		})
+		
+		$("#rTitle").on("click",function(){
+			var str = $("#title").attr("style");
+			if(str.indexOf("color: red;")!=-1){
+				var sty = $("#style").val();
+				var replace = sty.replace("color: red;","");
+				$("#style").val(replace);
+				$("#title").attr("style",replace);
+			}else{
+				var sty = $("#style").val();
+				sty+="color: red;";
+				$("#style").val(sty);
+				$("#title").attr("style",sty);
+			}
+		})
+	
+	
+	
 		//加载所有频道
 		$.ajax({
 			url :'/queryAllChannel',
