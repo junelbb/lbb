@@ -53,6 +53,10 @@
     				 </a>
 				</div>
 				<hr/>
+				
+				<div class="content">
+						${blog.summary }
+				</div>
 				<div class="content">
 					<!-- 幻灯片 -->
 					<c:if test="${not empty parseArray}">

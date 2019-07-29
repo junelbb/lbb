@@ -61,8 +61,9 @@
 				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题"/>
 				    		<span class="red"></span>
 				    	</p>
+				    	
 				    	<p>
-				    		<textarea name="content" rows="30"  class="form-control" placeholder="摘要">${blog.content }</textarea>
+				    		<textarea name="summary" rows="3" class="form-control" placeholder="摘要">${blog.summary }</textarea>
 				    		<span class="red"></span>
 				    	</p>
 				    	
@@ -71,10 +72,6 @@
 				    		<span id="span"><br/><input type="file" name="files"/><input type="text" placeholder="图片描述" name="photoDescs"><br/></span>
 				    	</p>
 				    	
-				    	<p>
-				    		<textarea name="summary" rows="3" class="form-control" placeholder="摘要">${blog.summary }</textarea>
-				    		<span class="red"></span>
-				    	</p>
 				    	
 				    	<p>
 				    		上传封面：

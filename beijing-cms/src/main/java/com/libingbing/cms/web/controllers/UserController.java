@@ -104,7 +104,6 @@ public class UserController {
 		for (int i = 0; i < files.length; i++) {
 			String upload = FileUploadUtil.upload(request, files[i]);
 			Picture picture = new Picture(upload, photoDescs[i]);
-			System.out.println(picture);
 			list.add(picture);
 		}
 		
@@ -116,6 +115,8 @@ public class UserController {
 		Integer id = article.getId();
 		if(id != null){
 			//修改文章
+			String jsonString = JSONArray.toJSONString(list);
+			article.setContent(jsonString);
 			articleService.updateByKey(article);
 		}else{
 			//发布文章
