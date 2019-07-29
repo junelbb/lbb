@@ -5,7 +5,6 @@ package com.lbb.cms.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import com.lbb.cms.metas.Gender;
 
@@ -51,6 +50,11 @@ public class User implements Serializable {
 	/**头像地址**/
 	private String picture;
 	
+	/**星座**/
+	private String star;
+	
+	/**座右铭**/
+	private String motto;
 	
 	//------------------------------------------------------------------------
 	
@@ -149,10 +153,25 @@ public class User implements Serializable {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+	public String getStar() {
+		return star;
+	}
+
+	public void setStar(String star) {
+		this.star = star;
+	}
+
+	public String getMotto() {
+		return motto;
+	}
+
+	public void setMotto(String motto) {
+		this.motto = motto;
+	}
+	
 	
 	//--------------------------------------------------------------------------------
 
-	
 	
 
 	@Override

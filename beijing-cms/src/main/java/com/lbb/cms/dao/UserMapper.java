@@ -26,5 +26,9 @@ public interface UserMapper {
 	public int count(User user);
 
 	public void editAvatar(User user);
+
+	public User selectUserByPrimaryKey(Integer id);
+
+	public void saveUser(User user);
 	
 }

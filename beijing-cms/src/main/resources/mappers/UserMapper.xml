@@ -12,6 +12,8 @@
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
     <result column="picture" jdbcType="TIMESTAMP" property="picture" />
+    <result column="star" jdbcType="TIMESTAMP" property="star" />
+    <result column="motto" jdbcType="TIMESTAMP" property="motto" />
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -97,7 +99,41 @@
   </insert>
   
   <update id="editAvatar" parameterType="com.lbb.cms.domain.User">
-  	update cms_user set picture = #{picture} where id=#{id}
+  	update cms_user set picture = #{picture},star=#{star},motto=#{motto} where id=#{id}
   </update>
+  
+  <select id="selectUserByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    
+	  select  
+	    id, username, password, nickname, birthday, locked, created, updated ,star ,motto ,gender
+	  from cms_user
+	    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="saveUser" parameterType="com.lbb.cms.domain.User">
+  	update cms_user
+  	<set>
+  		<if test="username!=null">
+  			username=#{username},
+  		</if>
+  		<if test="nickname!=null">
+  			nickname=#{nickname},
+  		</if>
+  		<if test="gender!=null">
+  			gender=#{gender},
+  		</if>
+  		<if test="birthday!=null">
+  			birthday=#{birthday},
+  		</if>
+  		<if test="star!=null">
+  			star=#{star},
+  		</if>
+  		<if test="motto!=null">
+  			motto=#{motto}
+  		</if>
+  	</set>
+  	where id=#{id}
+  </update>
+  
   
 </mapper>

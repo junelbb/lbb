@@ -42,10 +42,6 @@ public interface ArticleService {
 
 	public abstract void removeArticle(Integer id);
 
-	public abstract void saveUser(User user);
-
-	public abstract User selectUserByPrimaryKey(Integer id);
-
 	public abstract List<SpcialArticle> getSpcial(Article specileArticle,
 			Page specialPage, LinkedHashMap<String, Boolean> orders);
 

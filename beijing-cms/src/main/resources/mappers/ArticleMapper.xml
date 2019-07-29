@@ -415,27 +415,5 @@
     <delete id="removeArticle" parameterType="int">
     	delete from cms_article where id = #{0}
     </delete>
-	 <update id="saveUser" parameterType="com.lbb.cms.domain.User">
-  	update cms_user
-  	<set>
-  		<if test="username!=null">
-  			username=#{username},
-  		</if>
-  		<if test="nickname!=null">
-  			nickname=#{nickname}
-  		</if>
-  	</set>
-  	where id=#{id}
-  </update>
-  
-  <select id="selectUserByPrimaryKey" parameterType="java.lang.Integer" resultType="com.lbb.cms.domain.User">
-    
-  select  
-    id, username, password, nickname, birthday, locked, created, updated
-    from cms_user
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  
- 
   
 </mapper>

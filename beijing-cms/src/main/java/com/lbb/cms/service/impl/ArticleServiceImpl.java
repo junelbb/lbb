@@ -95,20 +95,5 @@ public class ArticleServiceImpl implements ArticleService {
 		articleMapper.removeArticle(id);
 	}
 
-	@Override
-	public void saveUser(User user) {
-		// TODO Auto-generated method stub
-		articleMapper.saveUser(user);
-	}
-
-	@Override
-	public User selectUserByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return articleMapper.selectUserByPrimaryKey(id);
-	}
-
-	
-
-	
 	
 }

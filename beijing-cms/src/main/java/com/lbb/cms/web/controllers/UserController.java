@@ -3,6 +3,8 @@
  */
 package com.lbb.cms.web.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,12 +27,12 @@ import com.github.pagehelper.PageInfo;
 import com.lbb.cms.domain.Article;
 import com.lbb.cms.domain.Picture;
 import com.lbb.cms.domain.User;
+import com.lbb.cms.metas.Gender;
 import com.lbb.cms.service.ArticleService;
 import com.lbb.cms.service.UserService;
 import com.lbb.cms.utils.FileUploadUtil;
 import com.lbb.cms.utils.PageHelpUtil;
 import com.lbb.cms.web.Constant;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * 说明:
@@ -130,8 +132,6 @@ public class UserController {
 			articleService.save(article);
 			
 		}
-		
-		
 		return "redirect:/my/blogs";
 		
 	}
@@ -145,18 +145,27 @@ public class UserController {
 	}
 	
 	//转发至个人修改信息界面
+	//个人信息回显
 	@RequestMapping("userInfo")
 	public String userInfo(HttpServletRequest request,Model model){
 		User user = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-		User user2 = articleService.selectUserByPrimaryKey(user.getId());
+		User user2 = userService.selectUserByPrimaryKey(user.getId());
+		Date birthday = user2.getBirthday();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		model.addAttribute("day", simpleDateFormat.format(birthday));
 		model.addAttribute("user", user2);
 		return "user-space/user_edit";
 	}
 	
 	//完善或者修改个人信息
 	@RequestMapping("user/save")
-	public String saveUser(User user,Model model,HttpServletRequest request){
-		articleService.saveUser(user);
+	public String saveUser(User user,Model model,HttpServletRequest request,String day,String sex) throws ParseException{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date birthday = simpleDateFormat.parse(day);
+		Gender gender = Gender.valueOf(sex);
+		user.setGender(gender);
+		user.setBirthday(birthday);
+		userService.saveUser(user);
 		User user2 = userService.get(user.getId());
 		request.getSession().setAttribute(Constant.LOGIN_USER, user2);
 		return "redirect:/my/userInfo";

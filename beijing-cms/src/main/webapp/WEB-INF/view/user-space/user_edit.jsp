@@ -59,6 +59,23 @@
 				    		<span class="red"></span>
 				    	</p>
 				    	<p>
+				    		<input type="radio" name="sex" value="MALE" <c:if test="${user.gender.name() == 'MALE' }">checked="checked"</c:if>/>男
+				    		<input type="radio" name="sex" value="FAMALE" <c:if test="${user.gender.name() == 'FAMALE' }">checked="checked"</c:if>/>女
+				    		<span class="red"></span>
+				    	</p>
+				    	<p>
+				    		<input name="day" value="${day}" type="date" class="form-control" placeholder="生日"/>
+				    		<span class="red"></span>
+				    	</p>
+				    	<p>
+				    		<input name="star" value="${user.star}" class="form-control" placeholder="星座"/>
+				    		<span class="red"></span>
+				    	</p>
+				    	<p>
+				    		<input name="motto" value="${user.motto}" class="form-control" placeholder="座右铭"/>
+				    		<span class="red"></span>
+				    	</p>
+				    	<p>
 				    		<button type="submit" class="btn btn-info btn-block">保存</button> 
 				    	</p>
 				    	</form>

@@ -20,4 +20,8 @@ public interface UserService {
 	public int count(User user);
 
 	public abstract void editAvatar(User user);
+
+	public abstract User selectUserByPrimaryKey(Integer id);
+
+	public abstract void saveUser(User user);
 }

@@ -52,5 +52,17 @@ public class UserServiceImpl implements UserService {
 		userMapper.editAvatar(user);
 	}
 
+	@Override
+	public User selectUserByPrimaryKey(Integer id) {
+		// TODO Auto-generated method stub
+		return userMapper.selectUserByPrimaryKey(id);
+	}
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		userMapper.saveUser(user);
+	}
+
 	
 }
