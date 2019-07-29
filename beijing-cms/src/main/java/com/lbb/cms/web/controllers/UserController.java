@@ -3,13 +3,12 @@
  */
 package com.lbb.cms.web.controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONArray;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lbb.cms.domain.Article;
+import com.lbb.cms.domain.Picture;
 import com.lbb.cms.domain.User;
 import com.lbb.cms.service.ArticleService;
 import com.lbb.cms.service.UserService;
 import com.lbb.cms.utils.FileUploadUtil;
 import com.lbb.cms.utils.PageHelpUtil;
 import com.lbb.cms.web.Constant;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 /**
  * 说明:
@@ -94,7 +97,14 @@ public class UserController {
 	
 	//修改和发布文章
 	@RequestMapping("/blog/save")
-	public String save(Model model,Article article,MultipartFile file,HttpServletRequest request){
+	public String save(Model model,Article article,MultipartFile file,MultipartFile[] files,String[] photoDescs,HttpServletRequest request){
+		List<Picture> list = new ArrayList<Picture>();
+		for (int i = 0; i < files.length; i++) {
+			String upload = FileUploadUtil.upload(request, files[i]);
+			Picture picture = new Picture(upload, photoDescs[i]);
+			System.out.println(picture);
+			list.add(picture);
+		}
 		
 		String upload = FileUploadUtil.upload(request, file);
 		if(!upload.equals("")){
@@ -114,12 +124,13 @@ public class UserController {
 			article.setCreated(new Date());//文章发布时间
 			
 			User user = (User) request.getSession().getAttribute(Constant.LOGIN_USER);
-			
+			String jsonString = JSONArray.toJSONString(list);
+			article.setContent(jsonString);
 			article.setAuthor(user);
-			
 			articleService.save(article);
 			
 		}
+		
 		
 		return "redirect:/my/blogs";
 		
@@ -144,8 +155,10 @@ public class UserController {
 	
 	//完善或者修改个人信息
 	@RequestMapping("user/save")
-	public String saveUser(User user,Model model){
+	public String saveUser(User user,Model model,HttpServletRequest request){
 		articleService.saveUser(user);
+		User user2 = userService.get(user.getId());
+		request.getSession().setAttribute(Constant.LOGIN_USER, user2);
 		return "redirect:/my/userInfo";
 	}
 	

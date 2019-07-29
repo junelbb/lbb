@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="howsun">
 
     <title>CMS后台管理系统</title>
 
@@ -27,48 +27,57 @@
 
   <body id="page-top">
 
-    <!-- 后台管理系统顶部 -->
+	<!-- 后台管理系统顶部 -->
  	<jsp:include page="_inc_top.jsp"/>
 
     <div id="wrapper">
 
-      	<!-- 后台管理系统左部菜单 -->
+ 		<!-- 后台管理系统左部菜单 -->
  		<jsp:include page="_inc_left.jsp"/>
 
       <div id="content-wrapper">
 
         <div class="container-fluid">
 
-          <!-- 面包屑 -->
+          <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
               <a href="index.html">后台首页</a>
             </li>
-            <li class="breadcrumb-item active">用户管理</li>
+            <li class="breadcrumb-item active"><a href="categories">文章管理</a></li>
+             <li class="breadcrumb-item active">专题管理</li>
           </ol>
 
-          <!-- Page Content -->
-          <h1>用户管理</h1>
-          <hr>
-          <table class="table table-hover">
-          	<tr>
-          		<td>ID</td>
-          		<td>用户名</td>
-          		<td>昵称</td>
-          		<td>创建时间</td>
-          		<td>封号</td>
-          	</tr>
-          	<c:forEach items="${userList }" var="l">
-          	<tr>
-          		<td>${l.id }</td>
-          		<td>${l.username }</td>
-          		<td>${l.nickname }</td>
-          		<td><fmt:formatDate value="${l.created }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-          		<td><a href="#">封号</a></td>
-          	</tr>
-          	</c:forEach>
-          </table>
-			
+          <!-- Icon Cards-->
+          <br/>
+          <h1>专题文章设置</h1><br/>
+          <div class="row">
+          	<form action="saveSpecial" method="post">
+            <table class="table table-hover">
+            	<tr>
+            		<td>文章ID</td>
+            		<td>文章标题</td>
+            		<td>发布时间</td>
+            		<td>操作</td>
+            	</tr>
+			 	<c:forEach items="${spcialArticle.articleList }" var="sa">
+			 		<tr>
+			 			<td>${sa.id }</td>
+			 			<td>${sa.title }</td>
+			 			<td><fmt:formatDate value="${sa.created }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			 			<td>
+			 				<a href="setArticle?id=${sa.id }">移除</a>
+			 			</td>
+			 		</tr>
+			 	</c:forEach>
+			</table>
+            </form>
+          </div>
+         <form action="addSpecialArticle" method="post">
+         	<input type="hidden" name="sid" value="${sid }">
+         	<input type="text" placeholder="文章ID" name="id">
+			<button type="submit" class="btn btn-default btn-danger">按钮</button>
+         </form>
         </div>
         <!-- /.container-fluid -->
 
@@ -76,7 +85,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>Copyright Â© Your Website 2019</span>
             </div>
           </div>
         </footer>
@@ -92,32 +101,12 @@
       <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- Bootstrap core JavaScript-->
     <script src="/libs/jquery/jquery.min.js"></script>
     <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="/libs/sb-admin/sb-admin.min.js"></script>
-
   </body>
 
 </html>

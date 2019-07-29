@@ -3,13 +3,10 @@
  */
 package com.lbb.cms.web.controllers.admin;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.validator.PublicClassValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lbb.cms.domain.Article;
 import com.lbb.cms.domain.SpcialArticle;
+import com.lbb.cms.domain.User;
 import com.lbb.cms.service.adminService.AdminService;
 import com.lbb.cms.web.controllers.PassportController;
 
@@ -108,6 +106,14 @@ public class AdminHomeController {
 			//adminService.addSpecialArticle(map);
 		}
 		return "redirect:/admin/specialArticle";
+	}
+	
+	
+	@RequestMapping("userEdit")
+	public String userEdit(Model model){
+		List<User> userList = adminService.selectUsers();
+		model.addAttribute("userList", userList);
+		return "admin/user-manage";
 	}
 	
 }

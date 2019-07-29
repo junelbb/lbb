@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 /**
  * 说明:文章表(cms_article)
  * 
@@ -66,6 +68,8 @@ public class Article implements Serializable {
 	private Date updated;
 
 	
+	private Array[] dateContext;
+	
 	//---------------------------------------------------------------------
 
 	public Article() {
@@ -79,6 +83,7 @@ public class Article implements Serializable {
 
 
 	//---------------------------------------------------------------------
+	
 	
 	public Integer getId() {
 		return id;
@@ -96,14 +101,6 @@ public class Article implements Serializable {
 		this.title = title;
 	}
 
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
 	public String getSummary() {
 		return summary;
 	}
@@ -118,6 +115,14 @@ public class Article implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
 	public Channel getChannel() {
@@ -192,6 +197,13 @@ public class Article implements Serializable {
 		this.updated = updated;
 	}
 
+	public Array[] getDateContext() {
+		return dateContext;
+	}
+
+	public void setDateContext(Array[] dateContext) {
+		this.dateContext = dateContext;
+	}
 	
 	//---------------------------------------------------------------------
 
@@ -202,6 +214,8 @@ public class Article implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {

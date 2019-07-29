@@ -162,6 +162,24 @@ public class AssertUtil {
 		
 	}
 	
+	/**
+	 * 
+	 * @Title: greaterThanZero 
+	 * @Description: TODO
+	 * @param value
+	 * @param message
+	 * @return: void
+	 */
+	public static void strlength6(String str, String message){
+		//断言值字符串大于0
+		if(str.length()>=6){
+			System.out.println("字符串大于6");
+		}else{
+			throw new CRuntimeExcception(message);
+		}
+		
+	}
+	
 	
 	
 }

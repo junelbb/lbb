@@ -5,6 +5,7 @@ package com.lbb.cms.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.lbb.cms.metas.Gender;
 
@@ -49,6 +50,7 @@ public class User implements Serializable {
 	
 	/**头像地址**/
 	private String picture;
+	
 	
 	//------------------------------------------------------------------------
 	
@@ -140,7 +142,6 @@ public class User implements Serializable {
 	public void setUpdated(Date updated) {
 		this.updated = updated;
 	}
-
 	public String getPicture() {
 		return picture;
 	}
@@ -151,6 +152,7 @@ public class User implements Serializable {
 	
 	//--------------------------------------------------------------------------------
 
+	
 	
 
 	@Override

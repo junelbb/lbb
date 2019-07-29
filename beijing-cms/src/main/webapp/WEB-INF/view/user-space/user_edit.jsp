@@ -39,52 +39,28 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
-				<jsp:include page="/WEB-INF/inc/my_left.jsp"><jsp:param value="blog" name="module"/></jsp:include>
+				<jsp:include page="/WEB-INF/inc/my_left.jsp"><jsp:param value="user" name="module"/></jsp:include>
 			</div>
 			<div class="col-md-9">
 				<div class="panel panel-default">
 				  <div class="panel-body">
-				    	<h1>发布博客</h1>
+				    	<h1>个人信息</h1>
 				    	<hr/>
 				    	
-				    	<form action="/my/blog/save" enctype="multipart/form-data" method="post" >
-				    	<input type="hidden" value="${blog.id}" name="id">
+				    	<form action="/my/user/save" enctype="multipart/form-data" method="post" >
+				    	<input type="hidden" value="${user.id}" name="id">
 				    	<p align="center" class="red"> </p>
 				    	<p>
-				    		<span>频道</span>
-				    		<select id="channel" name="channel.id"></select>
-				    		
-				    		<span>种类</span>
-				    		<select id="category" name="category.id"></select>
-				    	</p>
-				    	<p>
-				    		<input name="title" value="${blog.title}" class="form-control" placeholder="博客标题"/>
+				    		<input name="username" value="${user.username}" class="form-control" placeholder="用户名称"/>
 				    		<span class="red"></span>
 				    	</p>
 				    	<p>
-				    		<textarea name="content" rows="30"  class="form-control" placeholder="摘要">${blog.content }</textarea>
+				    		<input name="nickname" value="${user.nickname}" class="form-control" placeholder="昵称"/>
 				    		<span class="red"></span>
 				    	</p>
-				    	
-				    	<p>
-				    		<button id="insertPhoto" type="button" class="btn btn-warning">添加图片</button>
-				    		<span id="span"><br/><input type="file" name="files"/><input type="text" placeholder="图片描述" name="photoDescs"><br/></span>
-				    	</p>
-				    	
-				    	<p>
-				    		<textarea name="summary" rows="3" class="form-control" placeholder="摘要">${blog.summary }</textarea>
-				    		<span class="red"></span>
-				    	</p>
-				    	
-				    	<p>
-				    		上传封面：
-				    		<input type="file" name="file"/>
-				    	</p>
-				    	
 				    	<p>
 				    		<button type="submit" class="btn btn-info btn-block">保存</button> 
 				    	</p>
-				    	
 				    	</form>
 				  </div>
 				</div>
@@ -146,10 +122,6 @@
 				}
 			});
 		});
-		
-		$("#insertPhoto").on("click",function(){
-			$("#span").append("<input type='file' name='files'/><input type='text' placeholder='图片描述' name='photoDescs'><br/>");
-		})
 	</script>
   </body>
 </html>

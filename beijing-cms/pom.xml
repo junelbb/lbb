@@ -150,12 +150,7 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${springforamework.version}</version>
-			<scope>test</scope>
-		</dependency>
+
 		
 		<!-- 日志输出 -->
 		<dependency>
@@ -179,6 +174,21 @@
 		</dependency>
 
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
 	</dependencies>
 
 
