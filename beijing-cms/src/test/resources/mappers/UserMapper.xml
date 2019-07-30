@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lbb.cms.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.lbb.cms.domain.User">
+<mapper namespace="com.libingbing.cms.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.libingbing.cms.domain.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="gender" jdbcType="INTEGER" property="gender" javaType="com.lbb.cms.metas.Gender" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+    <result column="gender" jdbcType="INTEGER" property="gender" javaType="com.libingbing.cms.metas.Gender" typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="created" jdbcType="TIMESTAMP" property="created" />
     <result column="updated" jdbcType="TIMESTAMP" property="updated" />
     <result column="picture" jdbcType="TIMESTAMP" property="picture" />
+    <result column="star" jdbcType="TIMESTAMP" property="star" />
+    <result column="motto" jdbcType="TIMESTAMP" property="motto" />
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -40,7 +42,7 @@
     delete from cms_user where id = #{id,jdbcType=INTEGER}
   </delete>
  
-  <insert id="insert" parameterType="com.lbb.cms.domain.User">
+  <insert id="insert" parameterType="com.libingbing.cms.domain.User">
     insert into cms_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="username != null">
@@ -96,8 +98,42 @@
     </trim>
   </insert>
   
-  <update id="editAvatar" parameterType="com.lbb.cms.domain.User">
-  	update cms_user set picture = #{picture} where id=#{id}
+  <update id="editAvatar" parameterType="com.libingbing.cms.domain.User">
+  	update cms_user set picture = #{picture},star=#{star},motto=#{motto} where id=#{id}
   </update>
+  
+  <select id="selectUserByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    
+	  select  
+	    id, username, password, nickname, birthday, locked, created, updated ,star ,motto ,gender
+	  from cms_user
+	    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <update id="saveUser" parameterType="com.libingbing.cms.domain.User">
+  	update cms_user
+  	<set>
+  		<if test="username!=null">
+  			username=#{username},
+  		</if>
+  		<if test="nickname!=null">
+  			nickname=#{nickname},
+  		</if>
+  		<if test="gender!=null">
+  			gender=#{gender},
+  		</if>
+  		<if test="birthday!=null">
+  			birthday=#{birthday},
+  		</if>
+  		<if test="star!=null">
+  			star=#{star},
+  		</if>
+  		<if test="motto!=null">
+  			motto=#{motto}
+  		</if>
+  	</set>
+  	where id=#{id}
+  </update>
+  
   
 </mapper>

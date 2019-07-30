@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lbb.cms.dao.adminDao.AdminMapper">
-	<resultMap type="com.lbb.cms.domain.SpcialArticle" id="specialMap">
+<mapper namespace="com.libingbing.cms.dao.adminDao.AdminMapper">
+	<resultMap type="com.libingbing.cms.domain.SpcialArticle" id="specialMap">
   	<id property="id" column="id"></id>
   	<result property="title" column="title"/>
   	<result property="abstr" column="abstr"/>
   	<result property="created" column="created"/>
-  	<collection property="articleList" column="id" ofType="com.lbb.cms.domain.Article" select="selectSpecials"></collection>
+  	<collection property="articleList" column="id" ofType="com.libingbing.cms.domain.Article" select="selectSpecials"></collection>
   </resultMap>
   <select id="selectSpecialById" parameterType="int" resultMap="specialMap">
   	SELECT 
@@ -26,7 +26,7 @@
 		cms_special
   </select>
   
-  <select id="selectSpecials" parameterType="int" resultType="com.lbb.cms.domain.Article">
+  <select id="selectSpecials" parameterType="int" resultType="com.libingbing.cms.domain.Article">
   	SELECT
 		b.id,b.title,b.created
 	FROM
@@ -38,7 +38,7 @@
 		sp.id=#{id}
   </select>
   
-  <select id="getSpecialById" parameterType="int" resultType="com.lbb.cms.domain.SpcialArticle">
+  <select id="getSpecialById" parameterType="int" resultType="com.libingbing.cms.domain.SpcialArticle">
   	SELECT 
 		id,title,abstr,created
 	FROM
@@ -47,11 +47,11 @@
 		id=#{id}
   </select>
   
-  <insert id="saveSpeccial" parameterType="com.lbb.cms.domain.SpcialArticle">
+  <insert id="saveSpeccial" parameterType="com.libingbing.cms.domain.SpcialArticle">
   	insert into cms_special(title,abstr) values(#{title},#{abstr})
   </insert>
   
-  <update id="updateSpecial" parameterType="com.lbb.cms.domain.SpcialArticle">
+  <update id="updateSpecial" parameterType="com.libingbing.cms.domain.SpcialArticle">
   	update cms_special
   	<set>
   		<if test="title!=null and title!=''">
@@ -68,7 +68,7 @@
   	insert into cms_special_article(aid,sid) values(#{aid},#{sid}) 
   </insert>
   
-  <select id="selectArticleByMiddleId" parameterType="int" resultType="com.lbb.cms.domain.Article">
+  <select id="selectArticleByMiddleId" parameterType="int" resultType="com.libingbing.cms.domain.Article">
   	SELECT
 		b.id,b.title,b.created
 	FROM
@@ -84,7 +84,7 @@
 		update cms_special_article set sid=#{sid} where aid=#{aid}
 	</update>
 	
-	<select id="selectUsers" resultType="com.lbb.cms.domain.User">
+	<select id="selectUsers" resultType="com.libingbing.cms.domain.User">
 		SELECT
 			id,username,nickname,created
 		FROM
