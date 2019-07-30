@@ -106,6 +106,14 @@ public class HomeController {
 				List<Article> lastArticles = articleService.gets(lastArticlesConditions, lastArticlesPage, null);
 				model.addAttribute("lastArticles", lastArticles);
 
+			}
+		});
+		
+		Thread t4 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
 				if(channel != null){
 					model.addAttribute("channel", new Channel(channel));
 				}
@@ -114,14 +122,25 @@ public class HomeController {
 		});
 
 		
-		Thread t4 = new Thread(new Runnable() {
+		Thread t5 = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				//---------------右侧放专题文章---------------------
 				
-				Article specileArticle = new Article();
+				Article article = new Article();
+				article.setStatus(1);
+				article.setDeleted(false);
+				
+				Page page2 = new Page(1, 3);
+				page2.setTotalCount(20);
+				
+				List<Article> list = articleService.gets(article, page2, null);
+				
+				model.addAttribute("articlePictureList", list);
+				
+				/*Article specileArticle = new Article();
 				specileArticle.setDeleted(false);
 				specileArticle.setStatus(1);
 				
@@ -129,18 +148,20 @@ public class HomeController {
 				specialPage.setTotalCount(20);
 				
 				List<SpcialArticle> spcialArticles = articleService.getSpcial(specileArticle, specialPage, null);
-				model.addAttribute("spcialArticles", spcialArticles);
+				model.addAttribute("spcialArticles", spcialArticles);*/
 			}
 		});
 		t1.start();
 		t2.start();
 		t3.start();
 		t4.start();
+		t5.start();
 		try {
 			t1.join();
 			t2.join();
 			t3.join();
 			t4.join();
+			t5.join();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

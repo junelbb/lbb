@@ -15,6 +15,7 @@
     <result column="deleted" property="deleted" jdbcType="BIT"/>
     <result column="created" property="created" jdbcType="TIMESTAMP"/>
     <result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+    <result column="titleStyle" property="titleStyle" jdbcType="VARCHAR"/>
     
     <result column="author_id" property="author.id" jdbcType="INTEGER"/>
     <result column="author_nickname" property="author.nickname" jdbcType="VARCHAR"/>
@@ -80,10 +81,10 @@
   </sql>
   
   <sql id="Base_Column_List">
-    id, title, summary, picture, channel_id, category_id, user_id, hits, hot, status, deleted, created, updated
+    id, title, summary, picture, channel_id, category_id, user_id, hits, hot, status, deleted, created, updated ,titleStyle
   </sql>
   <sql id="Base_Column_Lob">
-    id, title, summary, picture, channel_id, category_id, user_id, hits, hot, status, deleted, created, updated, content
+    id, title, summary, picture, channel_id, category_id, user_id, hits, hot, status, deleted, created, updated, content ,titleStyle
   </sql>
   
   <insert id="save" parameterType="com.libingbing.cms.domain.Article">
@@ -128,6 +129,9 @@
       <if test="content != null">
         content,
       </if>
+      <if test="titleStyle != null">
+        titleStyle,
+      </if>
     </trim>
  
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -170,12 +174,15 @@
       <if test="content != null">
         #{content,jdbcType=CLOB},
       </if>
+      <if test="titleStyle != null">
+        #{titleStyle,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <!-- 根据主键查询 -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.content, b.channel_id, b.category_id, b.user_id, b.hits, b.hot, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.content, b.channel_id, b.category_id, b.user_id, b.hits, b.hot, b.created, b.updated, b.titleStyle,
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -192,7 +199,7 @@
 
   <select id="selects" resultMap="BaseResultMap">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, b.titleStyle,
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -261,7 +268,7 @@
 
   <select id="queryAll" parameterType="article" resultType="article">
 	SELECT 
-		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, 
+		b.id, b.title, b.picture, b.summary, b.channel_id, b.category_id, b.user_id, b.hits, b.hot,b.status,b.deleted, b.created, b.updated, b.titleStyle,
 		u.id as author_id,
 		u.nickname as author_nickname,
 		ch.id as channel_id,
@@ -407,6 +414,9 @@
       </if>
       <if test="content != null">
        content= #{content,jdbcType=CLOB},
+      </if>
+      <if test="titleStyle != null">
+       titleStyle= #{titleStyle,jdbcType=VARCHAR},
       </if>
     	</set>
     	where id = #{id,jdbcType=INTEGER}

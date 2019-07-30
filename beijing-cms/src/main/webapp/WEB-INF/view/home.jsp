@@ -103,7 +103,7 @@
 						    </a>
 						  </div>
 						  <div class="media-body">
-						    <h3 class="media-heading article_title"><a href="/article?id=${article.id}">${article.title }</a></h3>
+						    <h3 class="media-heading article_title"><a href="/article?id=${article.id}"><span style="${article.titleStyle}">${article.title }</span></a></h3>
 						    <p>${article.summary}</p>
 						    <p class="blog_item_footer">
 						    	<span class="glyphicon glyphicon-user" title="作者"></span>作者：${article.author.nickname}&nbsp;&nbsp; &nbsp;
@@ -147,13 +147,11 @@
 				<div class="card">
 					<div class="card-header">专题</div>
 					<div class="card-body">
-						<c:forEach items="${spcialArticles}" var="spcialArticles">
-							<font color="red" size="5px">${spcialArticles.title}</font><br><font size="2px;">${spcialArticles.abstr }</font>
-							<ol>
-								<c:forEach items="${spcialArticles.articleList }" var="articleList">
-									<li><p>&nbsp;&nbsp;&nbsp;${articleList.title }</p>
-								</c:forEach>
-							</ol>
+						<c:forEach items="${articlePictureList}" var="articlePictureList">
+							<font size="5px" style="${articlePictureList.titleStyle}">
+								<a class="article_title" href="article?id=${articlePictureList.id }">${articlePictureList.title}</a>
+							</font>
+							<img alt="" src="<%=request.getContextPath()%>${articlePictureList.picture }" >
 						</c:forEach>
 					</div>
 				</div>

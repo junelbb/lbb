@@ -42,7 +42,7 @@
 			<div class="col-md-8">
 				
 				<!-- 文章 -->
-				<h2 align="center">${blog.title}</h2>
+				<h2 align="center" style="${blog.titleStyle}">${blog.title}</h2>
 				<div class="text-center">
 					作者：${blog.author.nickname}&nbsp;&nbsp;&nbsp;&nbsp;
 					浏览：${blog.hits}
